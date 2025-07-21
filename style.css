@@ -1138,3 +1138,21 @@ a:focus {
     color: black;
   }
 } 
+
+.titlebar {
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: #e0f2fe;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  margin-bottom: 24px;
+}
+.logo {
+  font-size: 2.2rem;
+  margin-right: 12px;
+}
+.app-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #222;
+} 
