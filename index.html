@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WeatherNova – Next-Gen Weather</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2600.svg">
+</head>
+<body>
+  <!-- Animated SVG Background (JS will inject SVGs here) -->
+  <div class="background-animated" id="background-animated" aria-hidden="true"></div>
+
+  <!-- Header / Navigation -->
+  <header class="header-glass">
+    <nav class="nav-main" aria-label="Main navigation">
+      <div class="logo-area"><span class="logo-emoji" aria-label="WeatherNova logo">🌦️</span> <span class="logo-text">WeatherNova</span></div>
+      <ul class="nav-links">
+        <li><a href="#hero" tabindex="0">Home</a></li>
+        <li><a href="#current" tabindex="0">Current</a></li>
+        <li><a href="#forecast" tabindex="0">Forecast</a></li>
+        <li><a href="#favorites" tabindex="0">Favorites</a></li>
+        <li><a href="#about" tabindex="0">About</a></li>
+      </ul>
+      <button id="theme-switcher" class="theme-switcher-btn" aria-label="Switch theme">🌓</button>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero-section">
+    <div class="hero-glass">
+      <div class="hero-animated-scene" id="hero-animated-scene" aria-hidden="true"></div>
+      <h1 class="hero-title"><span id="hero-emoji" class="hero-emoji" aria-label="Weather icon">🌤️</span>Welcome to WeatherNova</h1>
+      <p class="hero-desc">A next-generation, animated weather experience. Live backgrounds, real-time data, and beautiful design.</p>
+      <form class="search-bar" autocomplete="off" onsubmit="return false;">
+        <input id="city-input" type="text" placeholder="Enter city..." aria-label="City search"/>
+        <button id="geo-btn" type="button" aria-label="Use my location">📍</button>
+        <button id="search-btn" type="submit" aria-label="Search">Search</button>
+        <ul id="autocomplete-list" class="autocomplete-list"></ul>
+      </form>
+      <div class="search-hint">Try: London, New York, Tokyo, Paris...</div>
+    </div>
+  </section>
+
+  <!-- Current Weather Section -->
+  <section id="current" class="current-section">
+    <div class="glass current-glass">
+      <h2 class="section-title"><span id="current-emoji">🌡️</span> Current Weather</h2>
+      <div id="weather-card" class="weather-card-inner">
+        <div class="weather-main">
+          <span id="weather-icon" class="weather-icon-svg" aria-label="Weather icon">🌤️</span>
+          <span id="weather-temp" class="weather-temp">--°C</span>
+        </div>
+        <div id="weather-desc" class="weather-desc">--</div>
+        <div class="weather-details">
+          <div><span id="weather-humidity">--</span>% 💧</div>
+          <div><span id="weather-wind">--</span> m/s 💨</div>
+        </div>
+        <div class="weather-location" id="weather-location">--</div>
+      </div>
+      <div id="hourly-forecast" class="hourly-forecast"></div>
+      <div id="notification" class="notification" role="alert" aria-live="polite">
+        <span id="notification-message"></span>
+        <button id="notification-close" class="close" aria-label="Close notification" style="display:none;">&times;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Forecast Section -->
+  <section id="forecast" class="forecast-section">
+    <div class="glass forecast-glass">
+      <h2 class="section-title"><span>📅</span> 5-Day Forecast</h2>
+      <div id="forecast-list" class="forecast-list"></div>
+    </div>
+  </section>
+
+  <!-- Favorites Section -->
+  <section id="favorites" class="favorites-section">
+    <div class="glass favorites-glass">
+      <h2 class="section-title"><span>⭐</span> Favorite Cities</h2>
+      <div id="favorites-list" class="favorites-list"></div>
+      <form class="search-bar" autocomplete="off" onsubmit="return false;">
+        <input id="add-fav-input" type="text" placeholder="Add city..." aria-label="Add favorite city"/>
+        <button id="add-fav-btn" type="submit" aria-label="Add favorite">Add</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about-section">
+    <div class="glass about-glass">
+      <h2 class="section-title"><span>ℹ️</span> About WeatherNova</h2>
+      <p class="about-desc">WeatherNova is a unique, animated weather app that brings you real-time weather, beautiful backgrounds, and advanced features. Built with custom CSS, JavaScript, and OpenWeatherMap API.</p>
+      <div class="about-links">
+        <a href="https://openweathermap.org/" target="_blank">OpenWeatherMap</a>
+        <a href="https://github.com/" target="_blank">GitHub</a>
+      </div>
+      <p class="about-credit">Made with ❤️ by your AI assistant.</p>
+    </div>
+  </section>
+
+  <footer class="footer">&copy; 2024 WeatherNova. All rights reserved.</footer>
+
+  <script src="app.js"></script>
+  <script>
+    // Smooth scroll for nav links
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+    // Theme switcher logic (JS hook)
+    document.getElementById('theme-switcher').addEventListener('click', function() {
+      document.body.classList.toggle('dark-theme');
+    });
+    // Notification close button
+    document.getElementById('notification-close').onclick = function() {
+      document.getElementById('notification').classList.add('opacity-0');
+    };
+  </script>
+</body>
+</html> 
